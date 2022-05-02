@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Password_Genreator</string>
+    <string name="app_tetxview">محل نمایش پسورد</string>
+    <string name="app_edittext">مشحص کردن تعداد پسورد</string>
+    <string name="app_button_show">نشان دادن</string>
+    <string name="app_button_save"> ذخیره کردن</string>
+</resources>
