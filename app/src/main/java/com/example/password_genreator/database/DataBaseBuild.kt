@@ -6,14 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Data::class], version = 0)
-abstract class DadaBaseBuild():RoomDatabase() {
+abstract class DataBaseBuild():RoomDatabase() {
 
     abstract fun getDao():DataDao
 
     companion object{
 
         fun buildCreatedObj(cobtext:Context)=
-            Room.databaseBuilder(cobtext.applicationContext,DadaBaseBuild::class.java,"data.db")
+            Room.databaseBuilder(cobtext.applicationContext,DataBaseBuild::class.java,"data.db")
                 .allowMainThreadQueries().build()
 
 

@@ -14,10 +14,10 @@ data class Data(
     var passGenerator: String? = null,
 
     @ColumnInfo(name = "description")
-    var description: String,
+    var description: String?,
 
     @ColumnInfo(name = "date")
-    var date:String
+    var date:String=""
 
 
 )
