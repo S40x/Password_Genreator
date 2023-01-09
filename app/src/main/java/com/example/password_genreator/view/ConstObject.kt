@@ -2,6 +2,8 @@ package com.example.password_genreator.view
 
 object ConstObject{
 
-    const val username ="username"
-    const val  password= "password"
+
+    const val lenghtPass ="username"
+    const val  description_password= "password"
+    const val ChanelId_AddNotes= "creating_password"
 }

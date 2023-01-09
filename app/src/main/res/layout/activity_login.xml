@@ -13,8 +13,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="#DF7E0B1D"
-        app:cardCornerRadius="45dp"
+        android:backgroundTint="#E9B71B33"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,8 +34,8 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="170dp"
+                android:layout_height="57dp"
                 android:layout_marginTop="100dp"
                 android:text="𝒁𝒂𝒓𝒃𝒈𝒊♛"
                 android:textColor="@color/white"
@@ -94,5 +94,5 @@
     </androidx.cardview.widget.CardView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
