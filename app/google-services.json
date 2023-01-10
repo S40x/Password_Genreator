@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "147245542833",
+    "project_id": "passwordgenerator-1b571",
+    "storage_bucket": "passwordgenerator-1b571.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147245542833:android:9c60b3fd34296d460c2190",
+        "android_client_info": {
+          "package_name": "com.example.password_genreator_Zarbgi.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147245542833-g515flfa2pu2v37q3huild387c74g8fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHcWwt7rUVUkV-cfkLe9xgy0zYDW2YjMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147245542833-g515flfa2pu2v37q3huild387c74g8fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
