@@ -67,7 +67,13 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                 }
             }
             textViewShowPassword.setOnClickListener {
-                copyText(textViewShowPassword.rootView)
+                if (textViewShowPassword.text.equals("")){
+
+                    Toast.makeText(this, "ابتدا رمزی را بسازید ", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }else{
+                    copyText(textViewShowPassword.rootView)
+                }
             }
         }
 
@@ -140,9 +146,10 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         }
     }
 
-    override fun deleteItem() {
-        TODO("Not yet implemented")
+    override fun deleteItem(data: Data) {
+       dataDao.delete(data)
     }
+
 
 }
 

@@ -17,6 +17,7 @@ class MyAdapter(var item: MutableList<com.example.password_genreator.database.Da
 
         init {
             binding.passwordGeneratorText.setOnClickListener(this)
+            binding.deleteBtn.setOnClickListener(this)
 
 
         }
@@ -28,11 +29,19 @@ class MyAdapter(var item: MutableList<com.example.password_genreator.database.Da
                 listener.textPassViewCopy(position)
 
             }
+            if (p0==binding.deleteBtn){
+                val list = item[adapterPosition]
+                item.removeAt(position)
+                notifyDataSetChanged()
+                notifyItemRangeChanged(position,itemCount)
+
+               listener.deleteItem(list)
+            }
         }
     }
         interface GetBuildItemSetView{
             fun textPassViewCopy(position: Int)
-            fun deleteItem()
+            fun deleteItem(data: com.example.password_genreator.database.Data)
         }
 
 
@@ -46,6 +55,8 @@ class MyAdapter(var item: MutableList<com.example.password_genreator.database.Da
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        holder.binding.descriptionText.text = item[position].description
+        holder.binding.passwordGeneratorText.text = item[position].passGenerator
 
     }
 }
