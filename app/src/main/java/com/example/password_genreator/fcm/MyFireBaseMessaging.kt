@@ -3,7 +3,6 @@ package com.example.password_genreator.fcm
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.media.Image
 import android.os.Build
 import com.example.password_genreator.R
 import com.example.password_genreator.view.ConstObject
@@ -20,7 +19,7 @@ class MyFireBaseMessaging():FirebaseMessagingService() {
         val notification = Notification.Builder(this,ConstObject.ChanelId_FireBase)
             .setContentText(titel)
             .setContentText(description)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(android.R.drawable.alert_light_frame)
 
         val notificationService = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 

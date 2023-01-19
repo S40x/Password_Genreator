@@ -13,4 +13,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="Password_length">طول رمز:</string>
+    <string name="password_hint_password">تعداد رمز را مشخص کنید(بازه 1تا25)</string>
+    <string name="password_description">توضیحات رمز (اختیاری)</string>
+    <string name="description_titel">توضیحات:</string>
+    <string name="password_generator">رَمزسـ‌‌‌ـازِضربجی♛</string>
+    <string name="create_password">ایجاد رمز</string>
+    <string name="Eror_btn_save_main_Activity">لطفا ابتدا رمزی را بسازید</string>
+    <string name="Activiry_splash_gavanin">پسورد ساز ضربجی هیچگونه محافظتی در قبال رمز های ساخته شده شما ندارد و هدف اصلی ساخت رمز و ذخیره رمز شمارا دارد و درقبال همین پسورد شمارا به صورت آفلاین در خود حافظه دستگاهتان ذخیره کرده و هرگونه نگهداری از این رمز ساخته شده بر عهده خود کاربر میباشد و ماهیچگونه مدیریتی در قبال این نداریم</string>
+
 </resources>

@@ -10,6 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://dl.bintray.com/tapsellorg/maven'
+        }
     }
 }
 rootProject.name = "Password_Genreator"

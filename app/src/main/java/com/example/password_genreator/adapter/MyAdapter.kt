@@ -56,7 +56,7 @@ class MyAdapter(var item: MutableList<com.example.password_genreator.database.Da
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.descriptionText.text = item[position].description
-        holder.binding.passwordGeneratorText.text = item[position].passGenerator
+        holder.binding.passwordGeneratorText.text = item[position].passGenerator.toString()
 
     }
 }

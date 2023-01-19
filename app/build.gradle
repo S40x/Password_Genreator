@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -41,7 +42,7 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.4.3'
     implementation 'androidx.annotation:annotation:1.5.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    def lifecycle_version = "2.4.0"
+    def lifecycle_version = '2.5.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -55,11 +56,20 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
     implementation 'androidx.room:room-common:2.4.3'
     kapt "androidx.room:room-compiler:2.4.3"
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
+    implementation("ir.tapsell.plus:tapsell-plus-sdk-android:2.1.8")
+
+
+
+
+
+
+
+
 
 }
