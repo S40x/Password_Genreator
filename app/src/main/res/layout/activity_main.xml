@@ -40,36 +40,27 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:text="𝗣𝗮𝘀𝘀𝘄𝗼𝗿𝗱 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗼r"
+            android:layout_marginTop="55dp"
+            android:text="@string/password_generator"
             android:textColor="@color/white"
-            android:textSize="38sp"
+            android:textSize="36sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-        </View>
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="200dp"
             android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/background_btn"
-            android:text="save"
+            android:text="@string/app_button_save"
             android:textColor="@color/white"
+            android:textSize="18sp"
             android:textStyle="bold"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -80,13 +71,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:background="@drawable/btn_login_act"
             android:padding="2dp"
-            android:hint="texter"
+            android:hint="رمزی نساخته اید"
+            android:background="@drawable/btn_login_act"
+            android:paddingStart="5sp"
+            android:paddingEnd="8dp"
             android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:textSize="25sp"
-
+            android:paddingLeft="16sp"
+            android:visibility="invisible"
+            android:textColorHighlight="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/button_save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="#232323"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,9 +111,21 @@
         android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="1.0">
+    </androidx.recyclerview.widget.RecyclerView>
 
+    <ir.tapsell.sdk.bannerads.TapsellBannerView
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tapsell_zone_id="63c92c0cdf906e0b23c6fee1"
+        app:tapsell_banner_type="banner_320x50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
