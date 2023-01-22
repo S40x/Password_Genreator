@@ -24,8 +24,10 @@ import ir.tapsell.plus.model.AdNetworks
 import ir.tapsell.sdk.*
 import ir.tapsell.sdk.advertiser.TapsellAdActivity.AD_ID
 import ir.tapsell.sdk.advertiser.TapsellAdActivity.ZONE_ID
+import ir.tapsell.sdk.b
 import ir.tapsell.sdk.nativeads.TapsellNativeBannerManager
 import ir.tapsell.sdk.nativeads.TapsellNativeBannerViewManager
+import kotlin.math.log
 
 
 class Second : AppCompatActivity(), View.OnClickListener {
@@ -34,6 +36,7 @@ class Second : AppCompatActivity(), View.OnClickListener {
     private val requestInt = 2
     private var adIds =""
     private var onAdAvailable:Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
@@ -44,17 +47,17 @@ class Second : AppCompatActivity(), View.OnClickListener {
 
 
 
-        Tapsell.requestAd(this,
-            "63cb7b88e7c8497f1bd70d73",
-            TapsellAdRequestOptions(),
-            object : TapsellAdRequestListener() {
-                override fun onAdAvailable(adId: String) {
-                    adIds = adId
-                }
-                override fun onError(message: String) {
-                    Toast.makeText(this@Second, "$message", Toast.LENGTH_SHORT).show()
-                }
-            })
+//        Tapsell.requestAd(this,
+//            "63cb7b88e7c8497f1bd70d73",
+//            TapsellAdRequestOptions(),
+//            object : TapsellAdRequestListener() {
+//                override fun onAdAvailable(adId: String) {
+//                    adIds = adId
+//                }
+//                override fun onError(message: String) {
+//                    Toast.makeText(this@Second, "$message", Toast.LENGTH_SHORT).show()
+//                }
+//            })
 
 //hamsan tabglig
 
@@ -85,27 +88,28 @@ class Second : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "تولید رمز کمتر از رقم 25 تولید میشود", Toast.LENGTH_SHORT).show()
 
 
-            }else{
+            }else {
                 val intent = intent
-                intent.putExtra(ConstObject.lenghtPass,binding.editTextPassword.text.toString())
-                intent.putExtra(ConstObject.description_password,binding.editTextDescription.text.toString())
-                setResult(requestInt,intent)
+                intent.putExtra(ConstObject.lenghtPass, binding.editTextPassword.text.toString())
+                intent.putExtra(
+                    ConstObject.description_password,
+                    binding.editTextDescription.text.toString()
+                )
+                setResult(requestInt, intent)
 //                getNotificationLogin("پسوردباموفقیت ایجادشد","")
-
-                Tapsell.showAd(this,
-                    "63cb7b88e7c8497f1bd70d73",
-                    adIds,
-                    TapsellShowOptions(),
-                    object : TapsellAdShowListener() {
-                        override fun onOpened() {
-                        }
-                        override fun onClosed() {}
-                        override fun onError(message: String) {}
-                        override fun onRewarded(completed: Boolean) {}
-                    })
-
-
-
+//
+//                Tapsell.showAd(this,
+//                    "63cb7b88e7c8497f1bd70d73",
+//                    adIds,
+//                    TapsellShowOptions(),
+//                    object : TapsellAdShowListener() {
+//                        override fun onOpened() {
+//                        }
+//
+//                        override fun onClosed() {}
+//                        override fun onError(message: String) {}
+//                        override fun onRewarded(completed: Boolean) {}
+//                    })
                 finish()
 
             }
@@ -186,8 +190,7 @@ class Second : AppCompatActivity(), View.OnClickListener {
 
             TapTargetView.showFor(this, TapTarget.forView(
                 binding.editTextPassword, "طول رمز",
-                "در اینجا با مشخص کردن عددی بین بازه 1تا25رمز خودتون رو بسازید"
-            )
+                "در اینجا با مشخص کردن عددی بین بازه 1تا25رمز خودتون رو بسازید")
                 .tintTarget(false)
                 .outerCircleColor(R.color.purple_700)
                 .textColor(R.color.white), object : TapTargetView.Listener() {
@@ -195,22 +198,18 @@ class Second : AppCompatActivity(), View.OnClickListener {
                     super.onTargetClick(view)
                     descriptionPromt()
                 }
-
-            }
-            )
+            })
         }
     }
         private fun descriptionPromt() {
-
             TapTargetView.showFor(this,TapTarget.forView(binding.editTextDescription,"توضیحات پسورد ساخته شده",
-                "بعد از مشخص کردن تعداد رمز اینجا میتونی توضیحاتی بنویسید این بخش رو حتی میتونید پر نکنید ")
+                "بعد از مشخص کردن تعداد رمز اینجا میتونید توضیحاتی بنویسید این بخش اختیاری میباشد ")
                 .tintTarget(false)
                 .outerCircleColor(R.color.purple_700)
                 .textColor(R.color.white)
             ,object  :TapTargetView.Listener(){
                     override fun onTargetClick(view: TapTargetView?) {
                         super.onTargetClick(view)
-
                         createdSavePromt()
                     }
             }
@@ -218,19 +217,15 @@ class Second : AppCompatActivity(), View.OnClickListener {
         }
     private fun createdSavePromt(){
         TapTargetView.showFor(this,TapTarget.forView(binding.btnSave,"ایجاد رمز ",
-            "الا میتونی رمز خودتو ایجاد کنی پس کلیک کن ")
+            "الا میتونید رمز خودتون رو ایجاد کنید پس کلیک کن! ")
             .tintTarget(false)
             .outerCircleColor(R.color.purple_700)
             .textColor(R.color.white)
             ,object  :TapTargetView.Listener(){
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)
-
                 }
             })
         App.preferenceEdit.putBoolean("did",true).apply()
     }
-
-
-
 }

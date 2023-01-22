@@ -17,37 +17,37 @@ class LoginActivity : AppCompatActivity() {
         binding= ActivityLoginBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
-//        Tapsell.requestAd(this,
-//            "63cb7b88e7c8497f1bd70d73",
-//            TapsellAdRequestOptions(),
-//            object : TapsellAdRequestListener() {
-//                override fun onAdAvailable(adId: String) {
-//                    adIds = adId
-//                    Log.d("PRerfdfdsfsfs",adId)
-//
-//                }
-//                override fun onError(message: String) {
-//                    Toast.makeText(this@LoginActivity, "$message", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            })
+        Tapsell.requestAd(this,
+            "63cb7b88e7c8497f1bd70d73",
+            TapsellAdRequestOptions(),
+            object : TapsellAdRequestListener() {
+                override fun onAdAvailable(adId: String) {
+                    adIds = adId
+                    Log.d("PRerfdfdsfsfs",adId)
+
+                }
+                override fun onError(message: String) {
+                    Toast.makeText(this@LoginActivity, "$message", Toast.LENGTH_SHORT).show()
+                }
+
+            })
         setContentView(binding.root)
 
 
         binding.btnRulesAccept.setOnClickListener {
             if (binding.checkboxRules.isChecked){
-//                Tapsell.showAd(this,
-//                    "63cb7b88e7c8497f1bd70d73",
-//                    adIds,
-//                    TapsellShowOptions(),
-//                    object : TapsellAdShowListener() {
-//                        override fun onOpened() {
-//
-//                        }
-//                        override fun onClosed() {}
-//                        override fun onError(message: String) {}
-//                        override fun onRewarded(completed: Boolean) {}
-//                    })
+                Tapsell.showAd(this,
+                    "63cb7b88e7c8497f1bd70d73",
+                    adIds,
+                    TapsellShowOptions(),
+                    object : TapsellAdShowListener() {
+                        override fun onOpened() {
+
+                        }
+                        override fun onClosed() {}
+                        override fun onError(message: String) {}
+                        override fun onRewarded(completed: Boolean) {}
+                    })
 
                 App.preferenceEdit.putBoolean("splash",true).apply()
                 val intent = Intent(this,MainActivity::class.java)

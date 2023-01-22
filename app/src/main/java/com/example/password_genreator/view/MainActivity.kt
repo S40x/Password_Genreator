@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.password_genreator.R
 import com.example.password_genreator.adapter.MyAdapter
@@ -24,13 +23,7 @@ import com.example.password_genreator.database.DataDao
 import com.example.password_genreator.databinding.ActivityMainBinding
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
-import ir.tapsell.plus.AdRequestCallback
-import ir.tapsell.plus.AdShowListener
-import ir.tapsell.plus.TapsellPlus
-import ir.tapsell.plus.model.TapsellPlusAdModel
-import ir.tapsell.plus.model.TapsellPlusErrorModel
 import ir.tapsell.sdk.*
-import ir.tapsell.sdk.advertiser.TapsellAdActivity
 import ir.tapsell.sdk.advertiser.TapsellAdActivity.ZONE_ID
 import ir.tapsell.sdk.bannerads.TapsellBannerType
 import ir.tapsell.sdk.bannerads.TapsellBannerViewEventListener
@@ -48,6 +41,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
     private lateinit var clipboardManager: ClipboardManager
     private lateinit var adIds:String
     private  var avaibleBolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -82,7 +76,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
 
         binding.floatingActionButton2.setOnClickListener {
-            if (avaibleBolean==true) {
+
+
+
                 Tapsell.showAd(this,
                     "63cb813a32592f217376a41f",
                     adIds,
@@ -96,7 +92,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                         override fun onError(message: String) {}
                         override fun onRewarded(completed: Boolean) {}
                     })
-            }
+
             val intent = Intent(this, Second::class.java)
             startActivityForResult(intent, requestCodes)
             textViewShowPassword.visibility = View.VISIBLE
@@ -112,19 +108,20 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                 select(datas)
                 adapter.notifyDataSetChanged()
                 getAll()
-                textViewShowPassword.setOnClickListener {
-                }
+
             }
+        }
 
             textViewShowPassword.setOnClickListener {
                 if (textViewShowPassword.text.equals("")) {
                     Toast.makeText(this, "ابتدا رمزی را بسازید ", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 } else {
-                    copyText(textViewShowPassword.rootView)
+                    copyText(binding.textviewShow.rootView)
                 }
             }
-        }
+
+
         val banner = binding.banner
         banner.loadAd(this, ZONE_ID, TapsellBannerType.BANNER_320x50	)
 
@@ -146,9 +143,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
             clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("key", text)
             clipboardManager.setPrimaryClip(clipData)
-            Toast.makeText(applicationContext, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمز کپی شد", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(applicationContext, "No text to be copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمزی برای کپی وجود ندارد", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -208,9 +205,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
             clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("key", list)
             clipboardManager.setPrimaryClip(clipData)
-            Toast.makeText(applicationContext, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمز کپی شد", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(applicationContext, "No text to be copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمزی برای کپی وجود ندارد", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -243,7 +240,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
             TapTargetView.showFor(this, TapTarget.forView(
                 binding.floatingActionButton2, "ساخت رمز",
-                "کلیک کن و اولین رمز خودت رو بساز!"
+                "کلیک کنید و اولین رمزتون رو بسازید!"
             )
                 .tintTarget(false)
                 .outerCircleColor(R.color.purple_700)
@@ -260,7 +257,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
     private fun showTextViewPromt(){
         TapTargetView.showFor(this, TapTarget.forView(binding.textviewShow,"نمایش رمز ساخته شده",
-            "بعد از اینکه اولین رمز خودرا ساختید این بخش  براتون نمایان میشود و با یه کلیک ساده روش میتونید اون رو کپی (نحوه مپی زمان استفاده از رمزهای ذخیره شده هم صدق میکنه با یک کلیک اون رو میتونید کپی و استفاده کنید)")
+            "بعد از اینکه اولین رمز خودرا ساختید این بخش  براتون نمایان میشود و با یه کلیک ساده روش میتونید اون رو کپی (نحوه کپی زمان استفاده از رمزهای ذخیره شده هم صدق میکنه با یک کلیک اون رو میتونید کپی و استفاده کنید)")
             .tintTarget(false)
             .outerCircleColor(R.color.black)
             .textColor(R.color.white),
