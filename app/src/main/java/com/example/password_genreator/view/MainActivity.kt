@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -22,6 +23,7 @@ import com.example.password_genreator.database.DataDao
 import com.example.password_genreator.databinding.ActivityMainBinding
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
+import ir.tapsell.sdk.*
 import ir.tapsell.sdk.advertiser.TapsellAdActivity.ZONE_ID
 import ir.tapsell.sdk.bannerads.TapsellBannerType
 import ir.tapsell.sdk.bannerads.TapsellBannerViewEventListener
@@ -37,6 +39,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
     private lateinit var textViewShowPassword: TextView
     private lateinit var datas: Data
     private lateinit var clipboardManager: ClipboardManager
+    private lateinit var adIds:String
+    private  var avaibleBolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -44,7 +49,23 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         dataDao = DataBaseBuild.buildCreatedObj(this).getDao()
 
 
+        Tapsell.requestAd(this,
+            "63cb813a32592f217376a41f",
+            TapsellAdRequestOptions(),
+            object : TapsellAdRequestListener() {
+                override fun onAdAvailable(adId: String) {
+                    adIds = adId
+                    avaibleBolean = true
+                }
+                override fun onError(message: String) {
+                    Toast.makeText(this@MainActivity, "$message", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+
         showfabPromt()
+
 
         setFonts(this, binding.root)
         getAll()
@@ -55,32 +76,52 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
 
         binding.floatingActionButton2.setOnClickListener {
+
+
+
+                Tapsell.showAd(this,
+                    "63cb813a32592f217376a41f",
+                    adIds,
+                    TapsellShowOptions(),
+                    object : TapsellAdShowListener() {
+                        override fun onOpened() {
+
+                        }
+
+                        override fun onClosed() {}
+                        override fun onError(message: String) {}
+                        override fun onRewarded(completed: Boolean) {}
+                    })
+
             val intent = Intent(this, Second::class.java)
             startActivityForResult(intent, requestCodes)
             textViewShowPassword.visibility = View.VISIBLE
+
+
 
         }
 
         binding.buttonSave.setOnClickListener {
             if (textViewShowPassword.text.equals("")) {
-                Toast.makeText(this, "طفا ابتدا رمزی بسازید", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "لطفا ابتدا رمزی بسازید", Toast.LENGTH_SHORT).show()
             } else {
                 select(datas)
                 adapter.notifyDataSetChanged()
                 getAll()
-                textViewShowPassword.setOnClickListener {
-                }
+
             }
+        }
 
             textViewShowPassword.setOnClickListener {
                 if (textViewShowPassword.text.equals("")) {
                     Toast.makeText(this, "ابتدا رمزی را بسازید ", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 } else {
-                    copyText(textViewShowPassword.rootView)
+                    copyText(binding.textviewShow.rootView)
                 }
             }
-        }
+
+
         val banner = binding.banner
         banner.loadAd(this, ZONE_ID, TapsellBannerType.BANNER_320x50	)
 
@@ -93,15 +134,18 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         })
     }
 
+
+
+
     fun copyText(view: View) {
         val text = binding.textviewShow.text.toString()
         if (text.isNotEmpty()) {
             clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("key", text)
             clipboardManager.setPrimaryClip(clipData)
-            Toast.makeText(applicationContext, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمز کپی شد", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(applicationContext, "No text to be copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمزی برای کپی وجود ندارد", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -161,9 +205,9 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
             clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("key", list)
             clipboardManager.setPrimaryClip(clipData)
-            Toast.makeText(applicationContext, "Copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمز کپی شد", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(applicationContext, "No text to be copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "رمزی برای کپی وجود ندارد", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -187,45 +231,48 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
 
     }
-//    private fun permissionFile():Boolean{
-//        val readWeneedPermission = mutableListOf<String>()
-//        val permissionReadFile = ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//        if (permissionReadFile!=PackageManager.PERMISSION_GRANTED){
-//            readWeneedPermission.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//        }
-//        val permissionWriter =ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE)
-//        if (permissionWriter!=PackageManager.PERMISSION_GRANTED){
-//            readWeneedPermission.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-//        }
-//        if (readWeneedPermission.isNotEmpty()){
-//            ActivityCompat.requestPermissions(this,readWeneedPermission.toTypedArray(),3)
-//            return false
-//        }
-//        return true
 
 
 
 
-    private fun showfabPromt(){
-        if(!App.preferences.getBoolean("did",false)){
+    private fun showfabPromt() {
+        if (!App.preferences.getBoolean("did", false)) {
 
-            TapTargetView.showFor(this, TapTarget.forView(binding.floatingActionButton2,"ساخت رمز",
-                "کلیک کن و اولین رمز خودت رو بساز!")
+            TapTargetView.showFor(this, TapTarget.forView(
+                binding.floatingActionButton2, "ساخت رمز",
+                "کلیک کنید و اولین رمزتون رو بسازید!"
+            )
                 .tintTarget(false)
                 .outerCircleColor(R.color.purple_700)
-                .textColor(R.color.white)
-                ,object :TapTargetView.Listener(){
-                    override fun onTargetClick(view: TapTargetView?) {
-                        super.onTargetClick(view)
-                        showImagePromt()
-                    }
+                .textColor(R.color.white), object : TapTargetView.Listener() {
+                override fun onTargetClick(view: TapTargetView?) {
+                    super.onTargetClick(view)
+
+                    showTextViewPromt()
                 }
+            }
             )
         }
     }
+
+    private fun showTextViewPromt(){
+        TapTargetView.showFor(this, TapTarget.forView(binding.textviewShow,"نمایش رمز ساخته شده",
+            "بعد از اینکه اولین رمز خودرا ساختید این بخش  براتون نمایان میشود و با یه کلیک ساده روش میتونید اون رو کپی (نحوه کپی زمان استفاده از رمزهای ذخیره شده هم صدق میکنه با یک کلیک اون رو میتونید کپی و استفاده کنید)")
+            .tintTarget(false)
+            .outerCircleColor(R.color.black)
+            .textColor(R.color.white),
+            object :TapTargetView.Listener() {
+                override fun onTargetClick(view: TapTargetView?) {
+                    super.onTargetClick(view)
+                    showImagePromt()
+                }
+            }
+        )
+    }
+
     private fun  showImagePromt(){
         TapTargetView.showFor(this, TapTarget.forView(binding.buttonSave,"ذخیره رمز ساخته شده",
-            "در این بخش میتونی رمزی که ساختی رو ذخیره کنی پیشنهادم اینه اول رمز خودت رو بساز")
+            "در این بخش میتونی رمزی که ساختی رو ذخیره کنی پیشنهادم اینه اول رمز خودت رو بسازی بعد اینکه ساخت میتونی با یه کلیک ساده روش اون رو ذخیره کنید")
             .tintTarget(false)
             .outerCircleColor(R.color.black)
             .textColor(R.color.white),
