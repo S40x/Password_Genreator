@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Data::class], version = 5)
+@Database(entities = [Data::class], version =1)
 
 abstract class DataBaseBuild :RoomDatabase() {
 
@@ -16,14 +16,10 @@ abstract class DataBaseBuild :RoomDatabase() {
 
         fun buildCreatedObj(cobtext: Context) =
             Room.databaseBuilder(cobtext.applicationContext, DataBaseBuild::class.java, "data.db")
-                .fallbackToDestructiveMigration()
 //                .addMigrations(MIGRATION_1_3)
-                .allowMainThreadQueries().build()
-
-
-
-
-        }
+                .allowMainThreadQueries()
+                .build()
+                }
     }
 //val MIGRATION_1_3 = object : Migration(3, 4) {
 //    override fun migrate(database: SupportSQLiteDatabase) {

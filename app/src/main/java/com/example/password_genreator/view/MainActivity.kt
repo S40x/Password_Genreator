@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
         binding.floatingActionButton2.setOnClickListener {
 
-
+            if (avaibleBolean==true) {
 
                 Tapsell.showAd(this,
                     "63cb813a32592f217376a41f",
@@ -89,9 +89,12 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                         }
 
                         override fun onClosed() {}
-                        override fun onError(message: String) {}
+                        override fun onError(message: String) {
+//                            Toast.makeText(this@MainActivity, "$message", Toast.LENGTH_SHORT).show()
+                        }
                         override fun onRewarded(completed: Boolean) {}
                     })
+            }
 
             val intent = Intent(this, Second::class.java)
             startActivityForResult(intent, requestCodes)
@@ -243,7 +246,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                 "کلیک کنید و اولین رمزتون رو بسازید!"
             )
                 .tintTarget(false)
-                .outerCircleColor(R.color.purple_700)
+                .outerCircleColor(R.color.black)
                 .textColor(R.color.white), object : TapTargetView.Listener() {
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)

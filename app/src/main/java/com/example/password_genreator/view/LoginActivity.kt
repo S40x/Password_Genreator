@@ -53,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this,MainActivity::class.java)
 
                 startActivity(intent)
+                finish()
             }else{
 
                 Toast.makeText(this, "لطفا قوانین را تایید کنید", Toast.LENGTH_SHORT).show()
@@ -60,5 +61,6 @@ class LoginActivity : AppCompatActivity() {
 
 
         }
+
     }
 }

@@ -34,8 +34,6 @@ class Second : AppCompatActivity(), View.OnClickListener {
     lateinit var binding: ActivitySecondBinding
     lateinit var dialog: AlertDialog
     private val requestInt = 2
-    private var adIds =""
-    private var onAdAvailable:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,7 +190,7 @@ class Second : AppCompatActivity(), View.OnClickListener {
                 binding.editTextPassword, "طول رمز",
                 "در اینجا با مشخص کردن عددی بین بازه 1تا25رمز خودتون رو بسازید")
                 .tintTarget(false)
-                .outerCircleColor(R.color.purple_700)
+                .outerCircleColor(R.color.black)
                 .textColor(R.color.white), object : TapTargetView.Listener() {
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)
@@ -205,7 +203,7 @@ class Second : AppCompatActivity(), View.OnClickListener {
             TapTargetView.showFor(this,TapTarget.forView(binding.editTextDescription,"توضیحات پسورد ساخته شده",
                 "بعد از مشخص کردن تعداد رمز اینجا میتونید توضیحاتی بنویسید این بخش اختیاری میباشد ")
                 .tintTarget(false)
-                .outerCircleColor(R.color.purple_700)
+                .outerCircleColor(R.color.black)
                 .textColor(R.color.white)
             ,object  :TapTargetView.Listener(){
                     override fun onTargetClick(view: TapTargetView?) {
@@ -219,7 +217,7 @@ class Second : AppCompatActivity(), View.OnClickListener {
         TapTargetView.showFor(this,TapTarget.forView(binding.btnSave,"ایجاد رمز ",
             "الا میتونید رمز خودتون رو ایجاد کنید پس کلیک کن! ")
             .tintTarget(false)
-            .outerCircleColor(R.color.purple_700)
+            .outerCircleColor(R.color.black)
             .textColor(R.color.white)
             ,object  :TapTargetView.Listener(){
                 override fun onTargetClick(view: TapTargetView?) {
