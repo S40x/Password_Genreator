@@ -30,6 +30,8 @@ import ir.tapsell.sdk.bannerads.TapsellBannerViewEventListener
 import kotlin.random.Random
 
 
+
+
 class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
     private lateinit var binding: ActivityMainBinding
     private var list = mutableListOf<Data>()
@@ -39,13 +41,14 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
     private lateinit var textViewShowPassword: TextView
     private lateinit var datas: Data
     private lateinit var clipboardManager: ClipboardManager
-    private lateinit var adIds:String
-    private  var avaibleBolean=false
+    private lateinit var adIds: String
+    private var avaibleBolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setFonts(this, binding.root)
         dataDao = DataBaseBuild.buildCreatedObj(this).getDao()
 
 
@@ -57,10 +60,18 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                     adIds = adId
                     avaibleBolean = true
                 }
-                override fun onError(message: String) {
-                    Toast.makeText(this@MainActivity, "$message", Toast.LENGTH_SHORT).show()
-                }
 
+                override fun onError(message: String) {} })
+
+        Tapsell.requestAd(this,
+            "63cb7b88e7c8497f1bd70d73",
+            TapsellAdRequestOptions(),
+            object : TapsellAdRequestListener() {
+                override fun onAdAvailable(adId: String) {
+                    adIds = adId
+                    Log.d("PRerfdfdsfsfs", adId)
+
+                }
             })
 
 
@@ -77,26 +88,39 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
         binding.floatingActionButton2.setOnClickListener {
 
+            Tapsell.showAd(this,
+                "63cb7b88e7c8497f1bd70d73",
+                adIds,
+                TapsellShowOptions(),
+                object : TapsellAdShowListener() {
+                    override fun onOpened() {
+
+                    }
+
+                    override fun onClosed() {}
+                    override fun onError(message: String) {}
+
+                    override fun onRewarded(completed: Boolean) {}
+                })
 
 
-                Tapsell.showAd(this,
-                    "63cb813a32592f217376a41f",
-                    adIds,
-                    TapsellShowOptions(),
-                    object : TapsellAdShowListener() {
-                        override fun onOpened() {
+            Tapsell.showAd(this,
+                "63cb813a32592f217376a41f",
+                adIds,
+                TapsellShowOptions(),
+                object : TapsellAdShowListener() {
+                    override fun onOpened() {
 
-                        }
+                    }
 
-                        override fun onClosed() {}
-                        override fun onError(message: String) {}
-                        override fun onRewarded(completed: Boolean) {}
-                    })
+                    override fun onClosed() {}
+                    override fun onError(message: String) {}
+                    override fun onRewarded(completed: Boolean) {}
+                })
 
             val intent = Intent(this, Second::class.java)
             startActivityForResult(intent, requestCodes)
             textViewShowPassword.visibility = View.VISIBLE
-
 
 
         }
@@ -112,18 +136,18 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
             }
         }
 
-            textViewShowPassword.setOnClickListener {
-                if (textViewShowPassword.text.equals("")) {
-                    Toast.makeText(this, "ابتدا رمزی را بسازید ", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                } else {
-                    copyText(binding.textviewShow.rootView)
-                }
+        textViewShowPassword.setOnClickListener {
+            if (textViewShowPassword.text.equals("")) {
+                Toast.makeText(this, "ابتدا رمزی را بسازید ", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                copyText(binding.textviewShow.rootView)
             }
+        }
 
 
         val banner = binding.banner
-        banner.loadAd(this, ZONE_ID, TapsellBannerType.BANNER_320x50	)
+        banner.loadAd(this, ZONE_ID, TapsellBannerType.BANNER_320x50)
 
         banner.setEventListener(object : TapsellBannerViewEventListener {
             override fun onRequestFilled() {}
@@ -133,8 +157,6 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
             override fun onHideBannerView() {}
         })
     }
-
-
 
 
     fun copyText(view: View) {
@@ -149,17 +171,7 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         }
     }
 
-    fun getRandPassword(inputvalidation: Int): String {
-        val characterSet = "0123456789abcdefghijklmnopqrstuvwxyzABCEFGHIJKLMNOPQRSTUVWXYZ"
-        val random = Random(System.nanoTime())
-        val password = StringBuilder()
-        for (i in 0 until inputvalidation) {
-            val rIndex = random.nextInt(characterSet.length)
-            password.append(characterSet[rIndex])
-        }
 
-        return password.toString()
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -167,11 +179,14 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         if (requestCode == 1 || resultCode == 2) {
 
             val password = data?.getStringExtra(ConstObject.lenghtPass)
+            val symbolCharacter = data?.getBooleanExtra(ConstObject.passwordSymbol.toString(),false)
+            val numberCharacter = data?.getBooleanExtra(ConstObject.numberPassword.toString(),false)
             if (password == null) {
 
                 return
             } else {
-                val show = getRandPassword(password.toString().toInt())
+                val show = getRandPassword(password.toString().toInt(),symbolCharacter.toString().toBoolean(),numberCharacter.toString().toBoolean())
+                Log.d("rr",ConstObject.passwordSymbol.toString())
 
                 textViewShowPassword.text = show
                 datas = Data(
@@ -184,6 +199,28 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
 
         }
 
+    }
+    fun getRandPassword(inputvalidation: Int , symbolPassword:Boolean , numberCharacterPassword:Boolean): String {
+
+        var  characterSet = "abcdefghijklmnopqrstuvwxyz"
+
+        if (numberCharacterPassword){
+            characterSet = "ABCEFGHIJKLMNOPQRSTUVWXYZ!/?%&#@&abcdefghijklmnopqrstuvwxyz0123456789"
+
+        }
+
+
+
+
+
+        val random = Random(System.nanoTime())
+        val password = StringBuilder()
+        for (i in 0 until inputvalidation) {
+            val rIndex = random.nextInt(characterSet.length)
+            password.append(characterSet[rIndex])
+        }
+
+        return password.toString()
     }
 
     fun getAll() {
@@ -221,18 +258,17 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
                 val vg = v
                 for (i in 0 until vg.childCount) {
                     val child = vg.getChildAt(i)
-                    setFonts(context, child) }
-            } else if (v is TextView) { v.typeface = Typeface.
-            createFromAsset(context.assets, "font/bold_font.ttf") }
+                    setFonts(context, child)
+                }
+            } else if (v is TextView) {
+                v.typeface = Typeface.createFromAsset(context.assets, "font/iransans.ttf")
+            }
         } catch (e: Exception) {
 
         }
 
 
-
     }
-
-
 
 
     private fun showfabPromt() {
@@ -255,13 +291,15 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         }
     }
 
-    private fun showTextViewPromt(){
-        TapTargetView.showFor(this, TapTarget.forView(binding.textviewShow,"نمایش رمز ساخته شده",
-            "بعد از اینکه اولین رمز خودرا ساختید این بخش  براتون نمایان میشود و با یه کلیک ساده روش میتونید اون رو کپی (نحوه کپی زمان استفاده از رمزهای ذخیره شده هم صدق میکنه با یک کلیک اون رو میتونید کپی و استفاده کنید)")
+    private fun showTextViewPromt() {
+        TapTargetView.showFor(this, TapTarget.forView(
+            binding.textviewShow, "نمایش رمز ساخته شده",
+            "بعد از اینکه اولین رمز خودرا ساختید این بخش  براتون نمایان میشود و با یه کلیک ساده روش میتونید اون رو کپی (نحوه کپی زمان استفاده از رمزهای ذخیره شده هم صدق میکنه با یک کلیک اون رو میتونید کپی و استفاده کنید)"
+        )
             .tintTarget(false)
             .outerCircleColor(R.color.black)
             .textColor(R.color.white),
-            object :TapTargetView.Listener() {
+            object : TapTargetView.Listener() {
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)
                     showImagePromt()
@@ -270,23 +308,26 @@ class MainActivity : AppCompatActivity(), MyAdapter.GetBuildItemSetView {
         )
     }
 
-    private fun  showImagePromt(){
-        TapTargetView.showFor(this, TapTarget.forView(binding.buttonSave,"ذخیره رمز ساخته شده",
-            "در این بخش میتونی رمزی که ساختی رو ذخیره کنی پیشنهادم اینه اول رمز خودت رو بسازی بعد اینکه ساخت میتونی با یه کلیک ساده روش اون رو ذخیره کنید")
+    private fun showImagePromt() {
+        TapTargetView.showFor(this, TapTarget.forView(
+            binding.buttonSave, "ذخیره رمز ساخته شده",
+            "در این بخش میتونی رمزی که ساختی رو ذخیره کنی پیشنهادم اینه اول رمز خودت رو بسازی بعد اینکه ساخت میتونی با یه کلیک ساده روش اون رو ذخیره کنید"
+        )
             .tintTarget(false)
             .outerCircleColor(R.color.black)
             .textColor(R.color.white),
-            object :TapTargetView.Listener(){
+            object : TapTargetView.Listener() {
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)
 
-                    startActivity(Intent(applicationContext,Second::class.java))
+                    val intent = Intent(this@MainActivity, Second::class.java)
+                    startActivityForResult(intent, requestCodes)
+                    textViewShowPassword.visibility = View.VISIBLE
                 }
             }
         )
 
     }
-
 
 }
 

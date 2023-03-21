@@ -3,45 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="185dp"
-        android:background="#B71B33"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/background_login"
+        tools:ignore="MissingClass,MissingConstraints"
+        >
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_25sdp"
+            app:cardElevation="@dimen/_25sdp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView2"-->
-        <!--            android:layout_width="253dp"-->
-        <!--            android:layout_height="38dp"-->
-        <!--           -->
-        <!--            android:text="@string/zarbgi_String"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="25sp"-->
-        <!--            android:textStyle="italic"-->
-        <!--            android:paddingRight="6dp"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/btn_save"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toTopOf="@+id/btn_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/btn_save"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:background="@drawable/background_btn"
             android:text="@string/create_password"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,10 +55,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:text="@string/description_titel"
         android:textColor="#626262"
-        android:textSize="20dp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,13 +68,13 @@
         android:id="@+id/edit_text_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:autofillHints="creditCardExpirationDay"
         android:ems="15"
         android:hint="@string/password_hint_password"
         android:inputType="number"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="@dimen/_15ssp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,10 +84,10 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/_32sdp"
         android:text="@string/Password_length"
         android:textColor="#626262"
-        android:textSize="20dp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,44 +97,47 @@
         android:id="@+id/edit_text_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:ems="15"
         android:hint="@string/password_description"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="@dimen/_15ssp"
         android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_password"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_password"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <View
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_description" />
 
-    <FrameLayout
-        android:id="@+id/adContainer"
+    <ir.tapsell.sdk.bannerads.TapsellBannerView
+        android:id="@+id/banners"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        tools:ignore="MissingConstraints"></FrameLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tapsell_banner_type="banner_320x50"
+        app:tapsell_zone_id="63c92c0cdf906e0b23c6fee1" />
 
 
-<!--    <ir.tapsell.sdk.bannerads.TapsellBannerView-->
-<!--        android:id="@+id/banners"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:tapsell_zone_id="63c92c0cdf906e0b23c6fee1"-->
-<!--        app:tapsell_banner_type="banner_320x100" />-->
+    <CheckBox
+        android:id="@+id/check_box_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ترکیب حروف بزرگ و اعداد  "
+        app:layout_constraintBottom_toTopOf="@+id/banners"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

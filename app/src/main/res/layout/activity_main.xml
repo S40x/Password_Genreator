@@ -17,33 +17,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="32dp"-->
-        <!--            android:text="𝙕𝙖𝙧𝙗𝙟𝙞 𝙥𝙧𝙤𝙜𝙧𝙖𝙢𝙢𝙞𝙣𝙜 𝙜𝙧𝙤𝙪𝙥"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="25sp"-->
-        <!--            android:textStyle="italic"-->
-        <!--            app:layout_constraintBottom_toTopOf="@+id/view"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/textView2"-->
-        <!--            app:layout_constraintVertical_bias="0.0" />-->
-
-
-
-
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="@dimen/_17sdp"
             android:text="@string/password_generator"
             android:textColor="@color/white"
-            android:textSize="36sp"
+            android:textSize="@dimen/_25ssp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
@@ -53,13 +34,13 @@
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:background="@drawable/background_btn"
             android:text="@string/app_button_save"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/_18ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,19 +51,20 @@
             android:id="@+id/textview_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:padding="2dp"
-            android:hint="رمزی نساخته اید"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/btn_login_act"
-            android:paddingStart="5sp"
-            android:paddingEnd="8dp"
-            android:textColorHint="@color/white"
+            android:hint="رمزی نساخته اید"
+            android:padding="2dp"
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_8sdp"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            android:paddingLeft="16sp"
-            android:visibility="invisible"
             android:textColorHighlight="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/button_save"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/_18sdp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -97,6 +79,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="52dp"
         android:backgroundTint="#232323"
+        android:background="#232323"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -123,28 +106,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tapsell_zone_id="63c92c0cdf906e0b23c6fee1"
-        app:tapsell_banner_type="banner_320x100" />
+        app:tapsell_banner_type="banner_320x100"
+        app:tapsell_zone_id="63c92c0cdf906e0b23c6fee1" />
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/adContainer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/adContainer"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/tapsell_nativead_logo"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" />-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/tapsell_nativead_logo"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/TextView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content" />-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/TextView"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content" />-->
 
-<!--    </FrameLayout>-->
+    <!--    </FrameLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
 

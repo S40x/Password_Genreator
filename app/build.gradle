@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId "com.example.password_genreator_Zarbgi.com"
-        minSdk 28
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        minSdk 27
+        targetSdk 27
+        versionCode 2
+        versionName '2.0.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,7 +64,8 @@ dependencies {
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
     implementation("ir.tapsell.plus:tapsell-plus-sdk-android:2.1.8")
 
-
+    implementation 'com.intuit.ssp:ssp-android:1.1.0'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
 
 

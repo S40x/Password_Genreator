@@ -1,9 +1,17 @@
 package com.example.password_genreator.view
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
+import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.example.password_genreator.R
 import com.example.password_genreator.app.App
@@ -16,14 +24,23 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
+        val imageView = findViewById<ImageView>(R.id.imageView_logo)
 
-        if (!App.preferences.getBoolean("splash",false)){
-            startActivity(Intent(this,LoginActivity::class.java))
-        }else{
-            startActivity(Intent(this,MainActivity::class.java))
-        }
-        finish()
+        imageView.animate()
+            .apply {
+                duration = 1900
+                rotation(360f)
+                    .start()
+            }
+        Handler().postDelayed({
+
+            val intent = Intent(this, JoinRulesOrMain::class.java)
+            startActivity(intent)
+            finish()
+        }, 2000)
+
     }
 
+
 }
+
